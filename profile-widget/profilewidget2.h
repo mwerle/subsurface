@@ -172,7 +172,8 @@ private:
 	void removeEvent(DiveEventItem *item);
 	void hideEvents(DiveEventItem *item);
 	void editName(DiveEventItem *item);
-	void unhideEvents();
+    void editGasChange(DiveEventItem *item);
+    void unhideEvents();
 	void makeFirstDC();
 	void deleteCurrentDC();
 	void splitCurrentDC();

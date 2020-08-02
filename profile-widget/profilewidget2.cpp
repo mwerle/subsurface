@@ -1515,7 +1515,10 @@ void ProfileWidget2::contextMenuEvent(QContextMenuEvent *event)
 			}
 		}
 #endif
-	}
+        if (event_is_gaschange(dcEvent)) {
+            m.addAction(tr("Edit Gas Change"), [this, item] { editGasChange(item); });
+        }
+    }
 	bool some_hidden = false;
 	for (int i = 0; i < evn_used; i++) {
 		if (ev_namelist[i].plot_ev == false) {
@@ -1701,6 +1704,28 @@ void ProfileWidget2::editName(DiveEventItem *item)
 		}
 		Command::renameEvent(current_dive, dc_number, event, qPrintable(newName));
 	}
+}
+
+void ProfileWidget2::editGasChange(DiveEventItem *item)
+{
+    struct event *event = find_event(item->getEvent());
+    if (!event || !event_is_gaschange(event))
+        return;
+    bool ok;
+    QStringList cylinders;
+    for (int i = 0; i < current_dive->cylinders.nr; i++) {
+        if( i == event->gas.index ) continue;
+        cylinders << QString(current_dive->cylinders.cylinders[i].type.description) + tr(" (cyl. %1)").arg(i + 1);
+    }
+
+    QString newCylinder = QInputDialog::getItem(this, tr("Edit Gas Change"),
+                        tr("Select Cylinder:"), cylinders, 0, false, &ok);
+    if(ok) {
+        int tank = cylinders.indexOf(newCylinder);
+        // Delete existing event and create new event
+        Command::addGasSwitch(current_dive, dc_number, event->time.seconds, tank);
+        Command::removeEvent(current_dive, dc_number, event);
+    }
 }
 #endif
 
