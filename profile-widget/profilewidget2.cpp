@@ -1722,9 +1722,9 @@ void ProfileWidget2::editGasChange(DiveEventItem *item)
                         tr("Select Cylinder:"), cylinders, 0, false, &ok);
     if(ok) {
         int tank = cylinders.indexOf(newCylinder);
-        // Delete existing event and create new event
         Command::addGasSwitch(current_dive, dc_number, event->time.seconds, tank);
-        Command::removeEvent(current_dive, dc_number, event);
+        // No need to delete the existing event, "addGasSwitch" does it for us.
+        //Command::removeEvent(current_dive, dc_number, event);
     }
 }
 #endif
