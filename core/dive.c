@@ -1852,9 +1852,10 @@ static pressure_t merge_pressures(pressure_t a, pressure_t sample_a, pressure_t 
 		a = b;
 	if (!b.mbar)
 		b = a;
-	if(take_min)
-		return a.mbar < b.mbar? a : b;
-	return a.mbar > b.mbar? a : b;
+    if (take_min)
+        return a.mbar < b.mbar ? a : b;
+    else
+        return a.mbar > b.mbar ? a : b;
 }
 
 /*
