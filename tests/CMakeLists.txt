@@ -187,3 +187,17 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}
 
 # useful for debugging CMake issues
 # print_all_variables()
+
+# ##########################################################
+# Unit Tests
+# ##########################################################
+
+add_executable(UnitTestDiveC utDiveC.cpp utDiveC.h dive_proxy.h dive_proxy.c)
+target_link_libraries(
+	UnitTestDiveC
+	subsurface_corelib
+	RESOURCE_LIBRARY
+	${QT_TEST_LIBRARIES}
+	${SUBSURFACE_LINK_LIBRARIES}
+)
+add_test(NAME UnitTestDiveC COMMAND $<TARGET_FILE:UnitTestDiveC>)
