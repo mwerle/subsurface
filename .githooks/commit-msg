@@ -1,0 +1,10 @@
+#!/bin/sh
+RED=""
+NORMAL=""
+if [ -f ~/.term_colors ]; then
+    . ~/.term_colors
+fi
+
+if [ "1" != "$(grep -c '^Signed-off-by: ' "$1")" ]; then
+    printf >&2 "%sMissing Signed-off-by line.%s\n" "$RED" "$NORMAL"
+fi
