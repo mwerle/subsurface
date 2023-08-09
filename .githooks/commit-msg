@@ -1,10 +1,9 @@
 #!/bin/sh
-RED=""
-NORMAL=""
-if [ -f ~/.term_colors ]; then
-    . ~/.term_colors
-fi
+RED="$(tput setaf 1)"
+NORMAL="$(tput sgr0)"
 
 if [ "1" != "$(grep -c '^Signed-off-by: ' "$1")" ]; then
-    printf >&2 "%sMissing Signed-off-by line.%s\n" "$RED" "$NORMAL"
+	printf >&2 "%sMissing Signed-off-by line.%s\n" "$RED" "$NORMAL"
+	printf >&2 "To fix the last commit, run:\n$ git commit --amend --signoff\n"
+	printf >&2 "To fix the last N commits, run:\n$ git rebase --signoff HEAD~N\n"
 fi
