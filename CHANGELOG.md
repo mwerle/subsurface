@@ -5,6 +5,7 @@ desktop: add a button linking to the 'Contribute' page
 mobile: fix configuration of decompression ceiling and gradient factors
 desktop: fix gas switches in UDDF exports
 core: allow of up to 6 O2 sensors (and corresponding voting logic)
+desktop: add `hide first gas change` preference option.
 desktop: add divemode as a possible dive list column
 profile-widget: Now zomed in profiles can be panned with horizontal scroll.
 desktop: hide only events with the same severity when 'Hide similar events' is used
